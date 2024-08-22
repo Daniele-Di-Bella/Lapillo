@@ -1,3 +1,4 @@
+import locale
 import os
 import time
 from typing import Final
@@ -36,12 +37,21 @@ URL = "https://vulcanostatale.it/"
 def get_latest_article():
     response = requests.get(URL)
     soup = BeautifulSoup(response.text, 'html.parser')
+    articles = soup.find_all("div", class_="content")
 
-    article = soup.find('article')
-    if article:
-        title = article.find('h2').get_text()
-        link = article.find('a')['href']
-        return title, link
+    for article in articles:
+        date_span = article.find("span", class_="date")
+        A = date_span.text
+        locale.setlocale(locale.LC_TIME, 'it_IT.UTF-8')
+        current_time = time.localtime()
+        B = time.strftime("%d %B %Y", current_time)
+
+        if A.lower() == B.lower():
+            title = article.find('a')['title']
+            link = article.find('a')['href']
+            return link
+        else:
+            print("Nessun articolo oggi")
 
 
 def send_message_to_group(message, context):
@@ -69,6 +79,4 @@ def check_for_new_article():
 
 
 if __name__ == '__main__':
-    while True:
-        check_for_new_article()
-        time.sleep(86400)  # 86400 secondi = 24 ore
+    get_latest_article()
