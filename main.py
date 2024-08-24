@@ -6,12 +6,11 @@ import requests
 from bs4 import BeautifulSoup
 from telegram import Update
 from telegram.ext import Application, MessageHandler, CommandHandler, filters, ContextTypes
-from credentials import TOKEN, user, GROUP_ID
+from credentials import TOKEN, user
 
 # Bot configuration
 Token: Final = TOKEN
 Bot_username: Final = user
-Group_ID: Final = GROUP_ID
 
 start_text = ("Ciao! Sono 🪨 lapillo 🪨, il Telegram bot di Vulcano Statale, il giornale degli studenti "
               "dell'Università statale di Milano. Se vuoi capire meglio cosa faccio e come interagire "
