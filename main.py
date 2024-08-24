@@ -20,11 +20,11 @@ help_text = ""
 
 
 # Commands
-async def start_command(update: Update):
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(start_text)
 
 
-async def help_command(update: Update):
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(help_text)
 
 
